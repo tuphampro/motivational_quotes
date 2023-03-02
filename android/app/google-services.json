@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "27015252377",
+    "project_id": "motivational-quotes-8578d",
+    "storage_bucket": "motivational-quotes-8578d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27015252377:android:5d2ce53bf27c884e372b08",
+        "android_client_info": {
+          "package_name": "com.vn.motivationalquotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27015252377-mo4gr767eeu9cl2lh0u09ngmn6o5jlfj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB53bzZjWi4_PUuWcxeJiGVvwzERBttEb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27015252377-mo4gr767eeu9cl2lh0u09ngmn6o5jlfj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "27015252377-5e4vqnmve1em1aoaf1p59b84dimm42bo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vn.motivationalquotes"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
