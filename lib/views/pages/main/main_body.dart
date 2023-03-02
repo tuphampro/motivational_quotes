@@ -17,28 +17,26 @@ class MainBody extends StatelessWidget {
   final adsController = Get.put(AdsController());
 
   Widget? itemBuilder(BuildContext context, int index) {
-    return InkWell(
-      onTap: () {
-        print("object");
-      },
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 30),
-        padding: const EdgeInsets.only(
-            top: 14.0, right: 14.0, left: 14.0, bottom: 4),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            // image: Icon(icon),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.shade200,
-                blurRadius: 6,
-                offset: Offset(0, 6), // Shadow position
-              )
-            ],
-            border: Border.all(color: Colors.grey.shade100, width: 1),
-            borderRadius: BorderRadius.all(
-                Radius.circular(6.0) //                 <--- border radius here
-                )),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 30),
+      padding:
+          const EdgeInsets.only(top: 14.0, right: 14.0, left: 14.0, bottom: 4),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          // image: Icon(icon),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade200,
+              blurRadius: 6,
+              offset: Offset(0, 6), // Shadow position
+            )
+          ],
+          border: Border.all(color: Colors.grey.shade100, width: 1),
+          borderRadius: BorderRadius.all(
+              Radius.circular(6.0) //                 <--- border radius here
+              )),
+      child: InkWell(
+        onTap: () {},
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
