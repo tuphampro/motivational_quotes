@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:motivational_quotes/views/pages/main/quotes/index.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../controller/ads_controller.dart';
@@ -16,7 +17,7 @@ class MainBody extends StatelessWidget {
 
   final adsController = Get.put(AdsController());
 
-  Widget? itemBuilder(BuildContext context, int index) {
+  Widget itemBuilder(BuildContext context, int index) {
     return Container(
       margin: const EdgeInsets.only(bottom: 30),
       padding:
@@ -54,7 +55,7 @@ class MainBody extends StatelessWidget {
               children: [
                 Expanded(
                     child: Text(
-                  "-Nelson Mandela -",
+                  "- Nelson Mandela -",
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.grey.shade600),
                 )),
@@ -121,26 +122,27 @@ class MainBody extends StatelessWidget {
               icon: Icon(Icons.settings)),
         ],
       ),
-      body: ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: itemBuilder,
-        itemCount: 10,
-        primary: true,
-        padding: EdgeInsets.all(20),
-      ),
-      bottomSheet: Obx(
-        () => adsController.bannerAd.value != null
-            ? Container(
-                height: adsController.bannerAd.value?.size.height.toDouble(),
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: adsController.bannerAd.value?.size.width.toDouble(),
-                  height: adsController.bannerAd.value?.size.height.toDouble(),
-                  child: AdWidget(ad: adsController.bannerAd.value!),
-                ),
-              )
-            : SizedBox(),
-      ),
+      body: QuotesPage(),
+      //  ListView.builder(
+      //   shrinkWrap: true,
+      //   itemBuilder: itemBuilder,
+      //   itemCount: 10,
+      //   primary: true,
+      //   padding: EdgeInsets.all(20),
+      // ),
+      // bottomSheet: Obx(
+      //   () => adsController.bannerAd.value != null
+      //       ? Container(
+      //           height: adsController.bannerAd.value?.size.height.toDouble(),
+      //           alignment: Alignment.center,
+      //           child: SizedBox(
+      //             width: adsController.bannerAd.value?.size.width.toDouble(),
+      //             height: adsController.bannerAd.value?.size.height.toDouble(),
+      //             child: AdWidget(ad: adsController.bannerAd.value!),
+      //           ),
+      //         )
+      //       : SizedBox(),
+      // ),
     );
   }
 }

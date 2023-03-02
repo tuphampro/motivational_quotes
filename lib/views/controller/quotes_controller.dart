@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import '../../data/repository/quotes.dart';
 import '../../injector/injector.dart';
 
-class HomeController extends GetxController {
-  final _spinFreeMasterRepository = getIt<SpinFreeMasterRepository>();
+class QuotesController extends GetxController {
+  final _QuotesRepository = getIt<QuotesRepository>();
   final listData = RxList<dynamic>([]);
   final loading = false.obs;
 
@@ -18,7 +18,7 @@ class HomeController extends GetxController {
 
   getCoupons() async {
     loading.value = true;
-    final coupons = await _spinFreeMasterRepository.getCoupons();
+    final coupons = await _QuotesRepository.getCoupons();
     coupons.fold(
       (l) => print(l), // Get.dialog(AppDialog()),
       (r) {

@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../injector/injector.dart';
 import '../network/base.dart';
 
-class SpinFreeMasterRepository {
+class QuotesRepository {
   final _spinFreeMasterApi = getIt<ApiGatewayBase>();
 
   Future<Either<dynamic, List<dynamic>>> getCoupons() async {

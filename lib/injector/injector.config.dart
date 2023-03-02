@@ -32,8 +32,7 @@ _i1.GetIt $initGetIt(
   final registerModule = _$RegisterModule();
   gh.factory<_i3.ApiGatewayBase>(() => registerModule.spinFreeMasterApi);
   gh.singleton<_i4.InternetConnectionChecker>(registerModule.connectionChecker);
-  gh.factory<_i5.SpinFreeMasterRepository>(
-      () => registerModule.spinFreeMasterRepository);
+  gh.factory<_i5.QuotesRepository>(() => registerModule.quotesRepository);
   return getIt;
 }
 
@@ -44,6 +43,5 @@ class _$RegisterModule extends _i6.RegisterModule {
   @override
   _i7.ApiGatewayBase get spinFreeMasterApi => _i7.ApiGatewayBase();
   @override
-  _i8.SpinFreeMasterRepository get spinFreeMasterRepository =>
-      _i8.SpinFreeMasterRepository();
+  _i8.QuotesRepository get quotesRepository => _i8.QuotesRepository();
 }
