@@ -27,10 +27,7 @@ class MainMenu extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: const Text(
-                  'Câu hỏi thường gặp',
-                  textAlign: TextAlign.justify,
-                ),
+                title: const Text('Item 2'),
                 onTap: () {
                   drawerController.toggle!();
                 },

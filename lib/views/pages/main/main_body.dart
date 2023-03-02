@@ -20,7 +20,7 @@ class MainBody extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 30),
       padding:
-          const EdgeInsets.only(top: 14.0, right: 14.0, left: 14.0, bottom: 4),
+          const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0, bottom: 6),
       decoration: BoxDecoration(
           color: Colors.white,
           // image: Icon(icon),
@@ -36,7 +36,10 @@ class MainBody extends StatelessWidget {
               Radius.circular(6.0) //                 <--- border radius here
               )),
       child: InkWell(
-        onTap: () {},
+        enableFeedback: true,
+        onTap: () {
+          print("object");
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
