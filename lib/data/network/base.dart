@@ -9,5 +9,5 @@ class ApiGatewayBase extends GetConnect {
     httpClient.timeout = const Duration(seconds: 60 * 2);
   }
 
-  // Future<Response> getCoupons() => get('/spin/list');
+  // Future<Response> getQuotes() => get('/spin/list');
 }

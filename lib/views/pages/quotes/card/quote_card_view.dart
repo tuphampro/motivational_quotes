@@ -1,15 +1,15 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:motivational_quotes/core/models/app/quote.dart';
 
-import 'example_candidate_model.dart';
+import 'quote_candidate_model.dart';
 
-class ExampleCard extends StatelessWidget {
-  final ExampleCandidateModel candidate;
+class QuoteCardView extends StatelessWidget {
+  final QuoteModel quoteModel;
 
-  const ExampleCard({
-    Key? key,
-    required this.candidate,
-  }) : super(key: key);
+  const QuoteCardView({Key? key, required this.quoteModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ExampleCard extends StatelessWidget {
           Flexible(
             child: Container(
               decoration: BoxDecoration(
-                gradient: candidate.color,
+                gradient: gradientPink,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
@@ -57,7 +57,7 @@ class ExampleCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      candidate.name!,
+                      quoteModel.content,
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class ExampleCard extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      candidate.job!,
+                      quoteModel.author ?? "",
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 15,
@@ -77,13 +77,6 @@ class ExampleCard extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      candidate.city!,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                    )
                   ],
                 ),
               ],
