@@ -1,5 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
+const listGradients = [
+  gradientRed,
+  gradientPurple,
+  gradientBlue,
+  gradientPink,
+  identityGradient
+];
+
 const LinearGradient gradientRed = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
@@ -36,7 +44,7 @@ const LinearGradient gradientPink = LinearGradient(
   ],
 );
 
-const LinearGradient kNewFeedCardColorsIdentityGradient = LinearGradient(
+const LinearGradient identityGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [

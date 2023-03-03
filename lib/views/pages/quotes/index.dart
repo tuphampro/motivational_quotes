@@ -13,13 +13,15 @@ class QuotesPage extends GetView<QuotesController> {
 
   @override
   Widget build(BuildContext context) {
-    switch (controller.viewStyle.value) {
-      case QuotesViewStyle.card:
-        return CardQuotesPage();
+    return Obx(() {
+      switch (controller.viewStyle.value) {
+        case QuotesViewStyle.card:
+          return CardQuotesPage();
 
-      case QuotesViewStyle.list:
-      default:
-        return ListQuotesPage();
-    }
+        case QuotesViewStyle.list:
+        default:
+          return ListQuotesPage();
+      }
+    });
   }
 }

@@ -23,13 +23,10 @@ class MainBody extends StatelessWidget {
       // backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.15,
-        title: Text(
-          "Motivational Quotes",
-          style: Theme.of(context)
-              .textTheme
-              .titleLarge
-              ?.copyWith(color: Colors.blue),
-        ),
+        title: Text("Motivational Quotes",
+            style: Theme.of(context).textTheme.titleLarge
+            // ?.copyWith(color: Colors.blue),
+            ),
         actions: [
           IconButton(
             onPressed: () {},

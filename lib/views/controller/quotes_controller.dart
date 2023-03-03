@@ -1,9 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+import 'dart:math';
+
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:motivational_quotes/core/models/app/quote.dart';
+import 'package:motivational_quotes/views/pages/quotes/card/gradients.dart';
 import 'package:motivational_quotes/views/utils/enums.dart';
 import 'package:motivational_quotes/views/utils/storage_keys.dart';
 import 'package:share_plus/share_plus.dart';
@@ -11,7 +15,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/repository/quotes.dart';
 import '../../injector/injector.dart';
-import '../pages/quotes/card/quote_candidate_model.dart';
 import '../pages/quotes/card/quote_card_view.dart';
 
 class QuotesController extends GetxController {
@@ -20,26 +23,74 @@ class QuotesController extends GetxController {
   final loading = false.obs;
   final viewStyle = QuotesViewStyle.list.obs;
   final cards = RxList<QuoteCardView>([]);
+  AppinioSwiperController? swiperController;
+  Timer? intervalTimer;
 
   @override
   onInit() async {
     super.onInit();
     getViewStyle();
     getQuotes();
-    loadCards();
   }
 
   getViewStyle() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(
-        StorageKeys.QUOTE_VIEW_STYLE, QuotesViewStyle.list.toString());
     final value = prefs.getString(StorageKeys.QUOTE_VIEW_STYLE);
     if (value != null) viewStyle.value = QuotesViewStyle.values.byName(value);
+
+    if (viewStyle.value == QuotesViewStyle.card) loadCards();
   }
 
   getQuotes() async {
-    final quote = QuoteModel(content: "", favorite: false, id: "1");
-    listData.value = [quote, quote, quote, quote, quote, quote, quote, quote];
+    final quote = QuoteModel(
+      content:
+          "The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing",
+      author: "- Walt Disney -",
+      favorite: false,
+      id: "1",
+    );
+
+    final quote2 = QuoteModel(
+      content:
+          "Ước mơ mà không kèm theo hành động thì dù hi vọng có cánh cũng không bao giờ bay tới đích",
+      author: "- Shakespeare -",
+      favorite: false,
+      id: "1",
+    );
+
+    final quote3 = QuoteModel(
+      content: "Cách báo thù tốt nhất chính là thành công vang dội",
+      author: "- Frank Sinatra -",
+      favorite: false,
+      id: "1",
+    );
+
+    final quote4 = QuoteModel(
+      content:
+          "Thà làm một bông hoa sen nở khi thấy mặt trời bị mất hết nhụy còn hơn giữ nguyên hình nụ búp trong sương lạnh vĩnh cửu của mùa đông.",
+      author: "- R.Ta-go -",
+      favorite: false,
+      id: "1",
+    );
+
+    final quote5 = QuoteModel(
+      content:
+          "Khi bạn có tiền trong tay chỉ có bạn quên mất mình là ai. Nhưng khi bạn không có đồng nào cả, cả thế giới sẽ quên đi bạn là ai, đó là cuộc sống.",
+      author: "- Bill Gates -",
+      favorite: false,
+      id: "1",
+    );
+
+    final quote6 = QuoteModel(
+      content:
+          "Ước mơ mà không kèm theo hành động thì dù hi vọng có cánh cũng không bao giờ bay tới đích",
+      author: "- Shakespeare -",
+      favorite: false,
+      id: "1",
+    );
+
+    //
+    listData.value = [quote, quote2, quote3, quote4, quote5, quote6];
     // loading.value = true;
     // final coupons = await _quotesRepository.getQuotes();
     // loading.value = false;
@@ -52,13 +103,18 @@ class QuotesController extends GetxController {
     // );
   }
 
-  toggleViewStyle() {
+  toggleViewStyle() async {
     if (viewStyle.value == QuotesViewStyle.card) {
       viewStyle.value = QuotesViewStyle.list;
       cards.clear();
+      intervalTimer?.cancel();
     } else {
       viewStyle.value = QuotesViewStyle.card;
+      loadCards();
     }
+
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(StorageKeys.QUOTE_VIEW_STYLE, viewStyle.value.name);
   }
 
   favorite() {}
@@ -73,19 +129,34 @@ class QuotesController extends GetxController {
 
   // Card
   loadCards() {
+    swiperController ??= AppinioSwiperController();
+
+    intervalTimer = Timer.periodic(Duration(seconds: 16), (timer) {
+      swiperController?.swipeRight();
+    });
+
+    Random random = Random();
+
     for (var quote in listData) {
+      int randomNumber = random.nextInt(listGradients.length);
+
+      quote.color = listGradients[randomNumber];
+
       cards.add(
         QuoteCardView(quoteModel: quote),
       );
     }
-    cards.refresh();
   }
 
-  void swipe(int index, AppinioSwiperDirection direction) {}
+  swipe(int index, AppinioSwiperDirection direction) {}
 
-  void unswipe(bool unswiped) {
+  unswipe(bool unswiped) {
     if (unswiped) {
     } else {}
+  }
+
+  onEnd() {
+    swiperController?.swipeLeft();
   }
   //
 }

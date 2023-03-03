@@ -50,6 +50,11 @@ class ListQuotesPage extends GetView<QuotesController> {
                       fontStyle: FontStyle.italic, color: Colors.grey.shade600),
                 )),
                 IconButton(
+                    onPressed: () => {},
+                    icon: Icon(Icons.volume_up),
+                    iconSize: 16,
+                    visualDensity: VisualDensity.compact),
+                IconButton(
                     onPressed: () => controller.favorite(),
                     icon: Icon(Icons.favorite_border),
                     iconSize: 16,
@@ -74,14 +79,12 @@ class ListQuotesPage extends GetView<QuotesController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: itemBuilder,
-        itemCount: 10,
-        primary: true,
-        padding: EdgeInsets.all(20),
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      itemBuilder: itemBuilder,
+      itemCount: controller.listData.length,
+      primary: true,
+      padding: EdgeInsets.all(20),
     );
   }
 }

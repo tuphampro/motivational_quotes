@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 class QuoteModel {
   final String content;
   final String? author;
@@ -9,6 +11,7 @@ class QuoteModel {
   final String? image;
   final bool favorite;
   final String id;
+  LinearGradient? color;
 
   QuoteModel({
     required this.content,
@@ -18,6 +21,7 @@ class QuoteModel {
     this.image,
     required this.favorite,
     required this.id,
+    this.color,
   });
 
   Map<String, dynamic> toMap() {

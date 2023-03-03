@@ -2,11 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:motivational_quotes/core/models/app/quote.dart';
+import 'package:motivational_quotes/views/controller/quotes_controller.dart';
 
-import 'quote_candidate_model.dart';
-
-class QuoteCardView extends StatelessWidget {
+class QuoteCardView extends GetView<QuotesController> {
   final QuoteModel quoteModel;
 
   const QuoteCardView({Key? key, required this.quoteModel}) : super(key: key);
@@ -29,13 +29,42 @@ class QuoteCardView extends StatelessWidget {
       alignment: Alignment.center,
       child: Column(
         children: [
-          Flexible(
+          Expanded(
             child: Container(
+              padding: EdgeInsets.all(20),
+              alignment: Alignment.center,
               decoration: BoxDecoration(
-                gradient: gradientPink,
+                gradient: quoteModel.color,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      quoteModel.content,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 28,
+                        overflow: TextOverflow.visible,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      quoteModel.author ?? "",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontStyle: FontStyle.italic),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -50,38 +79,31 @@ class QuoteCardView extends StatelessWidget {
               ),
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      quoteModel.content,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      quoteModel.author ?? "",
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                ),
+                IconButton(
+                    onPressed: () => {},
+                    icon: Icon(Icons.smart_display),
+                    visualDensity: VisualDensity.compact),
+                IconButton(
+                    onPressed: () => {},
+                    icon: Icon(Icons.volume_up),
+                    visualDensity: VisualDensity.compact),
+                IconButton(
+                    onPressed: () => controller.favorite(),
+                    icon: Icon(Icons.favorite_border),
+                    visualDensity: VisualDensity.compact),
+                IconButton(
+                    onPressed: () => controller.copy(quoteModel.content),
+                    icon: Icon(Icons.copy),
+                    visualDensity: VisualDensity.compact),
+                IconButton(
+                    onPressed: () => controller.share(quoteModel.content),
+                    icon: Icon(Icons.share),
+                    visualDensity: VisualDensity.compact),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
