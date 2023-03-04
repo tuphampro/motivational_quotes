@@ -11,6 +11,7 @@ import 'views/bindings/app.bindings.dart';
 import 'views/i18n/generated_locales/l10n.dart';
 import 'views/pages/main/quotes_app.dart';
 import 'views/routes/app_pages.dart';
+import 'package:wakelock/wakelock.dart';
 
 main() async {
   // Errors not caught by Flutter
@@ -21,6 +22,7 @@ main() async {
 
 bootstrapApp() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Wakelock.enable();
   MobileAds.instance.initialize();
 
   await configureDependencies(AppConfig.environment);

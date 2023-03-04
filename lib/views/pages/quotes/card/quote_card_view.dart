@@ -16,7 +16,10 @@ class QuoteCardView extends GetView<QuotesController> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: CupertinoColors.white,
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage("assets/images/bill_gates_2.jpg"),
+        ),
         boxShadow: [
           BoxShadow(
             color: CupertinoColors.systemGrey.withOpacity(0.2),
@@ -26,12 +29,11 @@ class QuoteCardView extends GetView<QuotesController> {
           )
         ],
       ),
-      alignment: Alignment.center,
       child: Column(
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(24),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 gradient: quoteModel.color,
@@ -43,26 +45,39 @@ class QuoteCardView extends GetView<QuotesController> {
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Icon(
+                      Icons.format_quote,
+                      color: Colors.white70,
+                      size: 40,
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       quoteModel.content,
                       textAlign: TextAlign.justify,
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
-                        fontSize: 28,
+                        fontSize: 26,
                         overflow: TextOverflow.visible,
                       ),
                     ),
                     const SizedBox(
-                      height: 25,
+                      height: 15,
                     ),
-                    Text(
-                      quoteModel.author ?? "",
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontStyle: FontStyle.italic),
+                    SizedBox(
+                      width: Get.width - 80,
+                      child: Text(
+                        quoteModel.author ?? "",
+                        textAlign: TextAlign.right,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic),
+                      ),
                     ),
                   ],
                 ),
@@ -81,17 +96,19 @@ class QuoteCardView extends GetView<QuotesController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(
-                    onPressed: () => {},
-                    icon: Icon(Icons.smart_display),
-                    visualDensity: VisualDensity.compact),
-                IconButton(
-                    onPressed: () => {},
-                    icon: Icon(Icons.volume_up),
-                    visualDensity: VisualDensity.compact),
+                if (quoteModel.video != null)
+                  IconButton(
+                      onPressed: () => {},
+                      icon: Icon(Icons.smart_display),
+                      visualDensity: VisualDensity.compact),
+                if (quoteModel.audio != null)
+                  IconButton(
+                      onPressed: () => {},
+                      icon: Icon(Icons.volume_up),
+                      visualDensity: VisualDensity.compact),
                 IconButton(
                     onPressed: () => controller.favorite(),
-                    icon: Icon(Icons.favorite_border),
+                    icon: Icon(Icons.thumb_up_off_alt),
                     visualDensity: VisualDensity.compact),
                 IconButton(
                     onPressed: () => controller.copy(quoteModel.content),

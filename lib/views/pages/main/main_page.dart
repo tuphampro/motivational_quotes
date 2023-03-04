@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, unrelated_type_equality_checks, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +23,7 @@ class MainPage extends StatelessWidget {
         controller: drawerController,
         borderRadius: 24,
         showShadow: true,
-        slideWidth: MediaQuery.of(context).size.width * 0.82,
+        slideWidth: MediaQuery.of(context).size.width * 0.8,
         angle: 0,
         isRtl: true,
         androidCloseOnBackTap: true,

@@ -33,19 +33,19 @@ class MainBody extends StatelessWidget {
             icon: Icon(Icons.search),
             visualDensity: VisualDensity.comfortable,
           ),
-          IconButton(
-            onPressed: () {
-              quotesController.toggleViewStyle();
-            },
-            icon: Icon(Icons.space_dashboard),
-            visualDensity: VisualDensity.comfortable,
-          ),
+          // IconButton(
+          //   onPressed: () {
+          //     quotesController.toggleViewStyle();
+          //   },
+          //   icon: Icon(Icons.space_dashboard),
+          //   visualDensity: VisualDensity.comfortable,
+          // ),
           IconButton(
               onPressed: () {
                 drawerController.toggle!();
               },
               visualDensity: VisualDensity.comfortable,
-              icon: Icon(Icons.settings)),
+              icon: Icon(Icons.menu)),
         ],
       ),
       body: QuotesPage(),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -8,8 +10,8 @@ class CardQuotesPage extends GetView<QuotesController> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.8,
+    return Container(
+      margin: EdgeInsets.only(bottom: 60),
       child: AppinioSwiper(
         unlimitedUnswipe: false,
         allowUnswipe: true,
@@ -20,12 +22,6 @@ class CardQuotesPage extends GetView<QuotesController> {
         cards: controller.cards,
         onSwipe: controller.swipe,
         onEnd: controller.onEnd,
-        // padding: const EdgeInsets.only(
-        //   left: 25,
-        //   right: 25,
-        //   top: 50,
-        //   bottom: 40,
-        // ),
       ),
     );
   }

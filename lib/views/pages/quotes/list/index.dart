@@ -12,11 +12,9 @@ class ListQuotesPage extends GetView<QuotesController> {
 
     return Container(
       margin: const EdgeInsets.only(bottom: 30),
-      padding:
-          const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0, bottom: 6),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: Colors.white,
-          // image: Icon(icon),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.shade200,
@@ -31,46 +29,60 @@ class ListQuotesPage extends GetView<QuotesController> {
       child: InkWell(
         enableFeedback: true,
         onTap: () => {},
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+        child: Stack(
           children: [
-            Text(
-              quote.content,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-              textAlign: TextAlign.justify,
+            Image.asset(
+              "assets/images/left-quote.png",
+              height: 48,
             ),
-            SizedBox(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                    child: Text(
-                  quote.author ?? "",
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.grey.shade600),
-                )),
-                IconButton(
-                    onPressed: () => {},
-                    icon: Icon(Icons.volume_up),
-                    iconSize: 16,
-                    visualDensity: VisualDensity.compact),
-                IconButton(
-                    onPressed: () => controller.favorite(),
-                    icon: Icon(Icons.favorite_border),
-                    iconSize: 16,
-                    visualDensity: VisualDensity.compact),
-                IconButton(
-                    onPressed: () => controller.copy(quote.content),
-                    icon: Icon(Icons.copy),
-                    iconSize: 16,
-                    visualDensity: VisualDensity.compact),
-                IconButton(
-                    onPressed: () => controller.share(quote.content),
-                    icon: Icon(Icons.share),
-                    iconSize: 16,
-                    visualDensity: VisualDensity.compact),
-              ],
-            )
+            Container(
+              color: Colors.white.withOpacity(0.56),
+              padding: const EdgeInsets.all(14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    quote.content,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.justify,
+                  ),
+                  SizedBox(height: 6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                          child: Text(
+                        quote.author ?? "",
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            color: Colors.grey.shade600),
+                      )),
+                      if (quote.audio != null)
+                        IconButton(
+                            onPressed: () => {},
+                            icon: Icon(Icons.volume_up),
+                            iconSize: 16,
+                            visualDensity: VisualDensity.compact),
+                      IconButton(
+                          onPressed: () => controller.favorite(),
+                          icon: Icon(Icons.favorite_border),
+                          iconSize: 16,
+                          visualDensity: VisualDensity.compact),
+                      IconButton(
+                          onPressed: () => controller.copy(quote.content),
+                          icon: Icon(Icons.copy),
+                          iconSize: 16,
+                          visualDensity: VisualDensity.compact),
+                      IconButton(
+                          onPressed: () => controller.share(quote.content),
+                          icon: Icon(Icons.share),
+                          iconSize: 16,
+                          visualDensity: VisualDensity.compact),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

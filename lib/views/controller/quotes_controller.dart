@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:motivational_quotes/core/models/app/quote.dart';
 import 'package:motivational_quotes/views/pages/quotes/card/gradients.dart';
 import 'package:motivational_quotes/views/utils/enums.dart';
@@ -31,6 +32,7 @@ class QuotesController extends GetxController {
     super.onInit();
     getViewStyle();
     getQuotes();
+    play();
   }
 
   getViewStyle() async {
@@ -43,8 +45,7 @@ class QuotesController extends GetxController {
 
   getQuotes() async {
     final quote = QuoteModel(
-      content:
-          "The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing The way to get started is to quit talking and begin doing",
+      content: "The way to get started is to quit talking and begin doing",
       author: "- Walt Disney -",
       favorite: false,
       id: "1",
@@ -131,8 +132,8 @@ class QuotesController extends GetxController {
   loadCards() {
     swiperController ??= AppinioSwiperController();
 
-    intervalTimer = Timer.periodic(Duration(seconds: 16), (timer) {
-      swiperController?.swipeRight();
+    intervalTimer = Timer.periodic(Duration(seconds: 45), (timer) {
+      swiperController?.swipe();
     });
 
     Random random = Random();
@@ -155,8 +156,21 @@ class QuotesController extends GetxController {
     } else {}
   }
 
+  play() async {
+    final player = AudioPlayer(); // Create a player
+    final duration = await player.setAsset(// Load a URL
+        'assets/audios/StarSky_TwoStepsFromHell.mp3'); // Schemes: (https: | file: | asset: )
+    // player.play(); // Play without waiting for completion
+    await player.setLoopMode(LoopMode.all);
+    await player.play();
+  }
+
   onEnd() {
-    swiperController?.swipeLeft();
+    intervalTimer?.cancel();
+    swiperController?.unswipe();
+    intervalTimer = Timer.periodic(Duration(seconds: 45), (timer) {
+      swiperController?.unswipe();
+    });
   }
   //
 }
