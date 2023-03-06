@@ -70,13 +70,18 @@ class QuoteCardView extends GetView<QuotesController> {
                     ),
                     SizedBox(
                       width: Get.width - 80,
-                      child: Text(
-                        quoteModel.author ?? "",
-                        textAlign: TextAlign.right,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontStyle: FontStyle.italic),
+                      child: InkWell(
+                        onTap: () => controller.aboutAuthor(quoteModel),
+                        child: Text(
+                          quoteModel.author != null
+                              ? "- ${quoteModel.author} -"
+                              : "",
+                          textAlign: TextAlign.right,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontStyle: FontStyle.italic),
+                        ),
                       ),
                     ),
                   ],

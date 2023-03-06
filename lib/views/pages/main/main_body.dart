@@ -23,9 +23,9 @@ class MainBody extends StatelessWidget {
       // backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.15,
-        title: Text("Motivational Quotes",
+        title: Text("Động lực mỗi ngày",
             style: Theme.of(context).textTheme.titleLarge
-            // ?.copyWith(color: Colors.blue),
+            // ?.copyWith(color: Colors.blue),e3
             ),
         actions: [
           IconButton(
@@ -33,13 +33,13 @@ class MainBody extends StatelessWidget {
             icon: Icon(Icons.search),
             visualDensity: VisualDensity.comfortable,
           ),
-          // IconButton(
-          //   onPressed: () {
-          //     quotesController.toggleViewStyle();
-          //   },
-          //   icon: Icon(Icons.space_dashboard),
-          //   visualDensity: VisualDensity.comfortable,
-          // ),
+          IconButton(
+            onPressed: () {
+              quotesController.toggleViewStyle();
+            },
+            icon: Icon(Icons.space_dashboard),
+            visualDensity: VisualDensity.comfortable,
+          ),
           IconButton(
               onPressed: () {
                 drawerController.toggle!();

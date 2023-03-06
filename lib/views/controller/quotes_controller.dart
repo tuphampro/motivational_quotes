@@ -13,6 +13,7 @@ import 'package:motivational_quotes/views/utils/enums.dart';
 import 'package:motivational_quotes/views/utils/storage_keys.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../data/repository/quotes.dart';
 import '../../injector/injector.dart';
@@ -32,7 +33,7 @@ class QuotesController extends GetxController {
     super.onInit();
     getViewStyle();
     getQuotes();
-    play();
+    // play();
   }
 
   getViewStyle() async {
@@ -46,7 +47,7 @@ class QuotesController extends GetxController {
   getQuotes() async {
     final quote = QuoteModel(
       content: "The way to get started is to quit talking and begin doing",
-      author: "- Walt Disney -",
+      author: "Walt Disney",
       favorite: false,
       id: "1",
     );
@@ -54,14 +55,14 @@ class QuotesController extends GetxController {
     final quote2 = QuoteModel(
       content:
           "Ước mơ mà không kèm theo hành động thì dù hi vọng có cánh cũng không bao giờ bay tới đích",
-      author: "- Shakespeare -",
+      author: "Shakespeare",
       favorite: false,
       id: "1",
     );
 
     final quote3 = QuoteModel(
       content: "Cách báo thù tốt nhất chính là thành công vang dội",
-      author: "- Frank Sinatra -",
+      author: "Frank Sinatra",
       favorite: false,
       id: "1",
     );
@@ -69,7 +70,7 @@ class QuotesController extends GetxController {
     final quote4 = QuoteModel(
       content:
           "Thà làm một bông hoa sen nở khi thấy mặt trời bị mất hết nhụy còn hơn giữ nguyên hình nụ búp trong sương lạnh vĩnh cửu của mùa đông.",
-      author: "- R.Ta-go -",
+      author: "R.Ta-go",
       favorite: false,
       id: "1",
     );
@@ -77,7 +78,7 @@ class QuotesController extends GetxController {
     final quote5 = QuoteModel(
       content:
           "Khi bạn có tiền trong tay chỉ có bạn quên mất mình là ai. Nhưng khi bạn không có đồng nào cả, cả thế giới sẽ quên đi bạn là ai, đó là cuộc sống.",
-      author: "- Bill Gates -",
+      author: "Bill Gates",
       favorite: false,
       id: "1",
     );
@@ -85,7 +86,7 @@ class QuotesController extends GetxController {
     final quote6 = QuoteModel(
       content:
           "Ước mơ mà không kèm theo hành động thì dù hi vọng có cánh cũng không bao giờ bay tới đích",
-      author: "- Shakespeare -",
+      author: "Shakespeare",
       favorite: false,
       id: "1",
     );
@@ -166,11 +167,22 @@ class QuotesController extends GetxController {
   }
 
   onEnd() {
-    intervalTimer?.cancel();
-    swiperController?.unswipe();
-    intervalTimer = Timer.periodic(Duration(seconds: 45), (timer) {
-      swiperController?.unswipe();
-    });
+    // intervalTimer?.cancel();
+    // swiperController?.unswipe();
+    // intervalTimer = Timer.periodic(Duration(seconds: 45), (timer) {
+    //   swiperController?.unswipe();
+    // });
+  }
+
+  aboutAuthor(QuoteModel quoteModel) async {
+    if (quoteModel.author == null) return;
+
+    final url =
+        Uri.parse("https://www.google.com/search?q=${quoteModel.author}");
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    }
   }
   //
 }
