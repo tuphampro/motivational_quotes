@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,6 +12,7 @@ import 'views/bindings/app.bindings.dart';
 import 'views/i18n/generated_locales/l10n.dart';
 import 'views/pages/main/quotes_app.dart';
 import 'views/routes/app_pages.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 main() async {
   // Errors not caught by Flutter
@@ -22,12 +24,14 @@ main() async {
 bootstrapApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  await Firebase.initializeApp();
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   await configureDependencies(AppConfig.environment);
   // Errors caught by Flutter
-  FlutterError.onError = (FlutterErrorDetails details) {
-    FlutterError.presentError(details);
-  };
+  // FlutterError.onError = (FlutterErrorDetails details) {
+  //   FlutterError.presentError(details);
+  // };
 
   // /// Cấu hình status bar
   SystemChrome.setSystemUIOverlayStyle(
