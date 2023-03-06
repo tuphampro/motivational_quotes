@@ -10,7 +10,8 @@ class QuoteModel {
   final String? video;
   final String? image;
   final bool favorite;
-  final String id;
+  final int id;
+
   LinearGradient? color;
 
   QuoteModel({
@@ -44,7 +45,7 @@ class QuoteModel {
       video: map['video'] != null ? map['video'] as String : null,
       image: map['image'] != null ? map['image'] as String : null,
       favorite: map['favorite'] as bool,
-      id: map['id'] as String,
+      id: map['id'],
     );
   }
 
