@@ -5,3 +5,5 @@ enum AuthenticationStatus {
   unactivated,
   expired
 }
+
+enum QuotesViewStyle { list, card }

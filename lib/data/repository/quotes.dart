@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
+import 'package:motivational_quotes/core/models/app/quote.dart';
 
 import '../../injector/injector.dart';
 import '../network/base.dart';
 
-class SpinFreeMasterRepository {
+class QuotesRepository {
   final _spinFreeMasterApi = getIt<ApiGatewayBase>();
 
-  Future<Either<dynamic, List<dynamic>>> getCoupons() async {
+  Future<Either<dynamic, List<QuoteModel>>> getQuotes() async {
     final resp = await _spinFreeMasterApi.post('/spin/list', {});
 
     try {

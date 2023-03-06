@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'quotes_app.dart';
 
@@ -18,20 +21,53 @@ class MainMenu extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: [
               const DrawerHeader(
-                child: Text(''),
+                child: Text(
+                  'Motivational Quotes',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
               ),
               ListTile(
-                title: const Text('Item 1'),
+                leading: Icon(Icons.people),
+                visualDensity: VisualDensity.compact,
+                title: const Text('Tài khoản'),
                 onTap: () {
-                  drawerController.toggle!();
+                  // drawerController.toggle!();
                 },
               ),
               ListTile(
-                title: const Text('Item 2'),
+                leading: Icon(Icons.settings),
+                visualDensity: VisualDensity.compact,
+                title: const Text('Cài đặt'),
                 onTap: () {
-                  drawerController.toggle!();
+                  // drawerController.toggle!();
                 },
               ),
+              ListTile(
+                leading: Icon(Icons.favorite),
+                visualDensity: VisualDensity.compact,
+                title: const Text('Đã thích'),
+                onTap: () {
+                  // drawerController.toggle!();
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.block),
+                visualDensity: VisualDensity.compact,
+                title: const Text('Bỏ quảng cáo'),
+                onTap: () {
+                  // drawerController.toggle!();
+                },
+              ),
+              // const SizedBox(height: 100),
+              // ListTile(
+              //   title: const Text(
+              //     'Phiên bản 1.0',
+              //     textAlign: TextAlign.center,
+              //   ),
+              //   onTap: () {
+              //     drawerController.toggle!();
+              //   },
+              // ),
             ],
           ),
         ),

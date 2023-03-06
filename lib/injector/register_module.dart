@@ -13,5 +13,5 @@ abstract class RegisterModule {
   ApiGatewayBase get spinFreeMasterApi;
 
   @injectable
-  SpinFreeMasterRepository get spinFreeMasterRepository;
+  QuotesRepository get quotesRepository;
 }
