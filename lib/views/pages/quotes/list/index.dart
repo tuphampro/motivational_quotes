@@ -36,7 +36,7 @@ class ListQuotesPage extends GetView<QuotesController> {
               height: 48,
             ),
             Container(
-              color: Colors.white.withOpacity(0.56),
+              color: Colors.white.withOpacity(0.48),
               padding: const EdgeInsets.all(14),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
