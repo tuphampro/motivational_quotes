@@ -92,16 +92,16 @@ class QuotesController extends GetxController {
 
     //
     listData.value = [quote, quote2, quote3, quote4, quote5, quote6];
-    // loading.value = true;
-    // final coupons = await _quotesRepository.getQuotes();
-    // loading.value = false;
+    loading.value = true;
+    final coupons = await _quotesRepository.getQuotes();
+    loading.value = false;
 
-    // coupons.fold(
-    //   (l) => print(l), // Get.dialog(AppDialog()),
-    //   (r) {
-    //     listData.value = r;
-    //   },
-    // );
+    coupons.fold(
+      (l) => print(l), // Get.dialog(AppDialog()),
+      (r) {
+        listData.value = r;
+      },
+    );
   }
 
   toggleViewStyle() async {

@@ -8,7 +8,8 @@ class QuotesRepository {
   final _spinFreeMasterApi = getIt<ApiGatewayBase>();
 
   Future<Either<dynamic, List<QuoteModel>>> getQuotes() async {
-    final resp = await _spinFreeMasterApi.post('/spin/list', {});
+    final resp = await _spinFreeMasterApi.post(
+        '/api/app/news/GetByPage?page=1&page_size=10&query=1=1&order_by', {});
 
     try {
       if (resp.isOk && resp.body["responseCode"] == 1) {
