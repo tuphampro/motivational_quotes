@@ -12,16 +12,18 @@ class CardQuotesPage extends GetView<QuotesController> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 60),
-      child: AppinioSwiper(
-        unlimitedUnswipe: false,
-        allowUnswipe: true,
-        direction: AppinioSwiperDirection.right,
-        maxAngle: 40,
-        controller: controller.swiperController,
-        unswipe: controller.unswipe,
-        cards: controller.cards,
-        onSwipe: controller.swipe,
-        onEnd: controller.onEnd,
+      child: Obx(
+        () => AppinioSwiper(
+          unlimitedUnswipe: false,
+          allowUnswipe: true,
+          direction: AppinioSwiperDirection.right,
+          maxAngle: 40,
+          controller: controller.swiperController,
+          unswipe: controller.unswipe,
+          cards: controller.cards,
+          onSwipe: controller.swipe,
+          onEnd: controller.onEnd,
+        ),
       ),
     );
   }

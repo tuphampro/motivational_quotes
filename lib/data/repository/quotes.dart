@@ -11,14 +11,15 @@ class QuotesRepository {
     try {
       final resp = await _spinFreeMasterApi.get(
           '/api/app/news/GetByPage?page=1&page_size=10&query=1=1&order_by');
+      print(resp);
 
-      if (resp.isOk && resp.body["responseCode"] == 1) {
-        final coupons = resp.body["coupons"];
+      if (resp.isOk && resp.body["meta"]["error_code"] == 200) {
+        final coupons = resp.body["data"];
 
-        // final couponList = List<dynamic>.from(
-        //     coupons.map((model) => dynamic.fromMap(model)));
+        final quoteList = List<QuoteModel>.from(
+            coupons.map((model) => QuoteModel.fromMap(model)));
 
-        return Right([]);
+        return Right(quoteList);
       }
       return Left(resp);
     } catch (e, s) {

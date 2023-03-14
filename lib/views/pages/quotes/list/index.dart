@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:motivational_quotes/views/controller/quotes_controller.dart';
 
@@ -41,11 +42,17 @@ class ListQuotesPage extends GetView<QuotesController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    quote.content,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    textAlign: TextAlign.justify,
-                  ),
+                  Html(data: quote.content.trim(), style: {
+                    // tables will have the below background color
+                    "p": Style(
+                      fontSize: FontSize.large,
+                    ),
+                  }),
+                  // Text(
+                  //   quote.content,
+                  //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  //   textAlign: TextAlign.justify,
+                  // ),
                   SizedBox(height: 6),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,12 +98,14 @@ class ListQuotesPage extends GetView<QuotesController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemBuilder: itemBuilder,
-      itemCount: controller.listData.length,
-      primary: true,
-      padding: EdgeInsets.all(20),
+    return Obx(
+      () => ListView.builder(
+        shrinkWrap: true,
+        itemBuilder: itemBuilder,
+        itemCount: controller.listData.length,
+        primary: true,
+        padding: EdgeInsets.all(20),
+      ),
     );
   }
 }

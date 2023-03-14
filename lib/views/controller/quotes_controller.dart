@@ -40,8 +40,6 @@ class QuotesController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     final value = prefs.getString(StorageKeys.QUOTE_VIEW_STYLE);
     if (value != null) viewStyle.value = QuotesViewStyle.values.byName(value);
-
-    if (viewStyle.value == QuotesViewStyle.card) loadCards();
   }
 
   getQuotes() async {
@@ -92,15 +90,16 @@ class QuotesController extends GetxController {
     );
 
     //
-    listData.value = [quote, quote2, quote3, quote4, quote5, quote6];
+    // listData.value = [quote, quote2, quote3, quote4, quote5, quote6];
     loading.value = true;
-    final coupons = await _quotesRepository.getQuotes();
+    final quotes = await _quotesRepository.getQuotes();
     loading.value = false;
 
-    coupons.fold(
+    quotes.fold(
       (l) => print(l), // Get.dialog(AppDialog()),
       (r) {
         listData.value = r;
+        if (viewStyle.value == QuotesViewStyle.card) loadCards();
       },
     );
   }
@@ -131,6 +130,8 @@ class QuotesController extends GetxController {
 
   // Card
   loadCards() {
+    cards.value = [];
+
     swiperController ??= AppinioSwiperController();
 
     intervalTimer = Timer.periodic(Duration(seconds: 45), (timer) {
@@ -148,6 +149,8 @@ class QuotesController extends GetxController {
         QuoteCardView(quoteModel: quote),
       );
     }
+
+    cards.refresh();
   }
 
   swipe(int index, AppinioSwiperDirection direction) {}
