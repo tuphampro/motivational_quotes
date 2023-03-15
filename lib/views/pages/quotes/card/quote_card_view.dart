@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:motivational_quotes/core/models/app/quote.dart';
 import 'package:motivational_quotes/views/controller/quotes_controller.dart';
@@ -55,15 +56,16 @@ class QuoteCardView extends GetView<QuotesController> {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      quoteModel.content,
-                      textAlign: TextAlign.justify,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 26,
-                        overflow: TextOverflow.visible,
-                      ),
+                    Html(
+                      data: quoteModel.content.trim(),
+                      style: {
+                        "p": Style(
+                          fontSize: FontSize.xxLarge,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          textAlign: TextAlign.justify,
+                        ),
+                      },
                     ),
                     const SizedBox(
                       height: 15,
@@ -73,7 +75,7 @@ class QuoteCardView extends GetView<QuotesController> {
                       child: InkWell(
                         onTap: () => controller.aboutAuthor(quoteModel),
                         child: Text(
-                          quoteModel.author != null
+                          quoteModel.author?.isNotEmpty == true
                               ? "- ${quoteModel.author} -"
                               : "",
                           textAlign: TextAlign.right,
@@ -101,12 +103,12 @@ class QuoteCardView extends GetView<QuotesController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                if (quoteModel.video != null)
+                if (quoteModel.video?.isNotEmpty == true)
                   IconButton(
                       onPressed: () => {},
                       icon: Icon(Icons.smart_display),
                       visualDensity: VisualDensity.compact),
-                if (quoteModel.audio != null)
+                if (quoteModel.audio?.isNotEmpty == true)
                   IconButton(
                       onPressed: () => {},
                       icon: Icon(Icons.volume_up),

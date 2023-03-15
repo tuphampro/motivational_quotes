@@ -21,9 +21,9 @@ import '../pages/quotes/card/quote_card_view.dart';
 
 class QuotesController extends GetxController {
   final _quotesRepository = getIt<QuotesRepository>();
-  final listData = RxList<QuoteModel>([]);
   final loading = false.obs;
   final viewStyle = QuotesViewStyle.list.obs;
+  final listData = RxList<QuoteModel>([]);
   final cards = RxList<QuoteCardView>([]);
   AppinioSwiperController? swiperController;
   Timer? intervalTimer;
@@ -33,7 +33,7 @@ class QuotesController extends GetxController {
     super.onInit();
     getViewStyle();
     getQuotes();
-    // play();
+    play();
   }
 
   getViewStyle() async {
@@ -43,54 +43,6 @@ class QuotesController extends GetxController {
   }
 
   getQuotes() async {
-    final quote = QuoteModel(
-      content: "The way to get started is to quit talking and begin doing",
-      author: "Walt Disney",
-      favorite: false,
-      id: 1,
-    );
-
-    final quote2 = QuoteModel(
-      content:
-          "Ước mơ mà không kèm theo hành động thì dù hi vọng có cánh cũng không bao giờ bay tới đích",
-      author: "Shakespeare",
-      favorite: false,
-      id: 1,
-    );
-
-    final quote3 = QuoteModel(
-      content: "Cách báo thù tốt nhất chính là thành công vang dội",
-      author: "Frank Sinatra",
-      favorite: false,
-      id: 1,
-    );
-
-    final quote4 = QuoteModel(
-      content:
-          "Thà làm một bông hoa sen nở khi thấy mặt trời bị mất hết nhụy còn hơn giữ nguyên hình nụ búp trong sương lạnh vĩnh cửu của mùa đông.",
-      author: "R.Ta-go",
-      favorite: false,
-      id: 1,
-    );
-
-    final quote5 = QuoteModel(
-      content:
-          "Khi bạn có tiền trong tay chỉ có bạn quên mất mình là ai. Nhưng khi bạn không có đồng nào cả, cả thế giới sẽ quên đi bạn là ai, đó là cuộc sống.",
-      author: "Bill Gates",
-      favorite: false,
-      id: 1,
-    );
-
-    final quote6 = QuoteModel(
-      content:
-          "Ước mơ mà không kèm theo hành động thì dù hi vọng có cánh cũng không bao giờ bay tới đích",
-      author: "Shakespeare",
-      favorite: false,
-      id: 1,
-    );
-
-    //
-    // listData.value = [quote, quote2, quote3, quote4, quote5, quote6];
     loading.value = true;
     final quotes = await _quotesRepository.getQuotes();
     loading.value = false;

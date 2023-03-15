@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -43,16 +43,9 @@ class ListQuotesPage extends GetView<QuotesController> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Html(data: quote.content.trim(), style: {
-                    // tables will have the below background color
                     "p": Style(
-                      fontSize: FontSize.large,
-                    ),
+                        fontSize: FontSize.large, textAlign: TextAlign.justify),
                   }),
-                  // Text(
-                  //   quote.content,
-                  //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                  //   textAlign: TextAlign.justify,
-                  // ),
                   SizedBox(height: 6),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,7 +57,7 @@ class ListQuotesPage extends GetView<QuotesController> {
                             fontStyle: FontStyle.italic,
                             color: Colors.grey.shade600),
                       )),
-                      if (quote.audio != null)
+                      if (quote.audio?.isNotEmpty == true)
                         IconButton(
                             onPressed: () => {},
                             icon: Icon(Icons.volume_up),
@@ -99,13 +92,15 @@ class ListQuotesPage extends GetView<QuotesController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: itemBuilder,
-        itemCount: controller.listData.length,
-        primary: true,
-        padding: EdgeInsets.all(20),
-      ),
+      () => controller.loading == true
+          ? CircularProgressIndicator()
+          : ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: itemBuilder,
+              itemCount: controller.listData.length,
+              primary: true,
+              padding: EdgeInsets.all(20),
+            ),
     );
   }
 }
