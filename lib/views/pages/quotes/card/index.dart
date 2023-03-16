@@ -10,24 +10,26 @@ class CardQuotesPage extends GetView<QuotesController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 60),
-      alignment: Alignment.center,
-      child: Obx(() {
-        return controller.loading == true
-            ? CircularProgressIndicator()
-            : AppinioSwiper(
-                unlimitedUnswipe: false,
-                allowUnswipe: true,
-                direction: AppinioSwiperDirection.right,
-                maxAngle: 40,
-                controller: controller.swiperController,
-                unswipe: controller.unswipe,
-                cards: controller.cards,
-                onSwipe: controller.swipe,
-                onEnd: controller.onEnd,
-              );
-      }),
+    return SafeArea(
+      child: Container(
+        margin: EdgeInsets.only(bottom: 60),
+        alignment: Alignment.center,
+        child: Obx(() {
+          return controller.loading == true
+              ? CircularProgressIndicator()
+              : AppinioSwiper(
+                  unlimitedUnswipe: false,
+                  allowUnswipe: true,
+                  direction: AppinioSwiperDirection.right,
+                  maxAngle: 40,
+                  controller: controller.swiperController,
+                  unswipe: controller.unswipe,
+                  cards: controller.cards,
+                  onSwipe: controller.swipe,
+                  onEnd: controller.onEnd,
+                );
+        }),
+      ),
     );
   }
 }

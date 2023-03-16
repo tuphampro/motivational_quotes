@@ -91,18 +91,20 @@ class ListQuotesPage extends GetView<QuotesController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => controller.loading == true
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              shrinkWrap: true,
-              itemBuilder: itemBuilder,
-              itemCount: controller.listData.length,
-              primary: true,
-              padding: EdgeInsets.all(20),
-            ),
+    return SafeArea(
+      child: Obx(
+        () => controller.loading == true
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: itemBuilder,
+                itemCount: controller.listData.length,
+                primary: true,
+                padding: EdgeInsets.all(20),
+              ),
+      ),
     );
   }
 }
