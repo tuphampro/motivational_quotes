@@ -1,12 +1,15 @@
-// ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks
+// ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:motivational_quotes/views/controller/quotes_controller.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ListQuotesPage extends GetView<QuotesController> {
-  const ListQuotesPage({super.key});
+  ListQuotesPage({super.key});
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
   Widget itemBuilder(BuildContext context, int index) {
     final quote = controller.listData[index];
@@ -89,6 +92,20 @@ class ListQuotesPage extends GetView<QuotesController> {
     );
   }
 
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+    refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    refreshController.loadComplete();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -97,12 +114,20 @@ class ListQuotesPage extends GetView<QuotesController> {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : ListView.builder(
-                shrinkWrap: true,
-                itemBuilder: itemBuilder,
-                itemCount: controller.listData.length,
-                primary: true,
-                padding: EdgeInsets.all(20),
+            : SmartRefresher(
+                enablePullDown: true,
+                enablePullUp: true,
+                header: WaterDropHeader(),
+                controller: refreshController,
+                // onRefresh: _onRefresh,
+                // onLoading: _onLoading,
+                child: ListView.builder(
+                  controller: controller.scrollController,
+                  shrinkWrap: true,
+                  itemBuilder: itemBuilder,
+                  itemCount: controller.listData.length,
+                  padding: EdgeInsets.all(20),
+                ),
               ),
       ),
     );

@@ -23,8 +23,12 @@ class CategoryController extends GetxController {
     quotes.fold(
       (l) => print(l), // Get.dialog(AppDialog()),
       (r) {
-        listData.value = r;
-        listData.refresh();
+        if (r.meta.error_code != 200) return;
+
+        final list = List<CategoryModel>.from(
+            r.data.map((model) => CategoryModel.fromMap(model)));
+
+        listData.value = list;
       },
     );
   }

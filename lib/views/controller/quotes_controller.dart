@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:appinio_swiper/appinio_swiper.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -28,6 +29,7 @@ class QuotesController extends GetxController {
   final cards = RxList<QuoteCardView>([]);
   AppinioSwiperController? swiperController;
   Timer? intervalTimer;
+  final scrollController = ScrollController();
 
   @override
   onInit() async {
@@ -35,6 +37,7 @@ class QuotesController extends GetxController {
     getViewStyle();
     getQuotes();
     play();
+    scrollController.addListener(getQuotes);
   }
 
   getViewStyle() async {
@@ -45,13 +48,19 @@ class QuotesController extends GetxController {
 
   getQuotes() async {
     loading.value = true;
-    final quotes = await _quotesRepository.getQuotes();
+    final quotes = await _quotesRepository.getQuotes(1);
     loading.value = false;
 
     quotes.fold(
       (l) => print(l), // Get.dialog(AppDialog()),
       (r) {
-        listData.value = r;
+        if (r.meta.error_code != 200) return;
+
+        final list = List<QuoteModel>.from(
+            r.data.map((model) => QuoteModel.fromMap(model)));
+
+        listData.value = list;
+
         if (viewStyle.value == QuotesViewStyle.card) loadCards();
       },
     );

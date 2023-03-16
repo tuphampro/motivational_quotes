@@ -10,7 +10,6 @@ class AppBinding extends Bindings {
     Get.put(AppController());
     Get.put(QuotesController());
 
-    // Get.put(AdsController());
     // Get.put(FirebaseController());
   }
 }
