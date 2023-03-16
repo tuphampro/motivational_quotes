@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:motivational_quotes/views/controller/category_controller.dart';
 
 class HeaderQuotes extends StatelessWidget {
-  const HeaderQuotes({super.key});
+  HeaderQuotes({super.key});
+  final controller = Get.put(CategoryController());
 
   headerItem(String text, {bool? selected}) {
     return InkWell(
@@ -24,21 +27,14 @@ class HeaderQuotes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            headerItem("Tất cả", selected: true),
-            headerItem("Bản thân"),
-            headerItem("Tình yêu"),
-            headerItem("Tình bạn"),
-            headerItem("Nhân cách sống"),
-            headerItem("Giá trị cuộc sống"),
-            headerItem("Tình yêu"),
-            headerItem("Gia đình"),
-            headerItem("Vợ chồng"),
-            headerItem("Đoàn kết"),
-          ],
+      child: Obx(
+        () => SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: controller.listData
+                .map<Widget>((element) => headerItem(element.name))
+                .toList(),
+          ),
         ),
       ),
     );

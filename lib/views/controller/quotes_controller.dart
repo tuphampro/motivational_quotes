@@ -14,6 +14,7 @@ import 'package:motivational_quotes/views/utils/storage_keys.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:html/parser.dart';
 
 import '../../data/repository/quotes.dart';
 import '../../injector/injector.dart';
@@ -70,14 +71,25 @@ class QuotesController extends GetxController {
     prefs.setString(StorageKeys.QUOTE_VIEW_STYLE, viewStyle.value.name);
   }
 
+  String? parseHtmlString(String htmlString) {
+    final document = parse(htmlString);
+    final parsedString = parse(document.body?.text).documentElement?.text;
+
+    return parsedString;
+  }
+
   favorite() {}
 
   copy(String content) async {
-    await Clipboard.setData(ClipboardData(text: content));
+    if (content.isNotEmpty) {
+      await Clipboard.setData(ClipboardData(text: parseHtmlString(content)));
+    }
   }
 
   share(String content) {
-    Share.share(content, subject: 'Motivational Quotes');
+    if (content.isNotEmpty) {
+      Share.share(parseHtmlString(content)!, subject: 'Motivational Quotes');
+    }
   }
 
   // Card
@@ -114,6 +126,9 @@ class QuotesController extends GetxController {
 
   play() async {
     final player = AudioPlayer();
+    final duration = await player.setAsset(// Load a URL
+        'assets/audios/StarSky_TwoStepsFromHell.mp3');
+
     await player.setLoopMode(LoopMode.all);
     await player.setVolume(0.5);
     await player.play();
