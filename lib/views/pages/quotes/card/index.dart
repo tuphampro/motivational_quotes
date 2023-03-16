@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks
 
 import 'package:appinio_swiper/appinio_swiper.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:motivational_quotes/views/controller/quotes_controller.dart';
@@ -13,6 +12,7 @@ class CardQuotesPage extends GetView<QuotesController> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 60),
+      alignment: Alignment.center,
       child: Obx(() {
         return controller.loading == true
             ? CircularProgressIndicator()

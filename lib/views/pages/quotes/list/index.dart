@@ -93,7 +93,9 @@ class ListQuotesPage extends GetView<QuotesController> {
   Widget build(BuildContext context) {
     return Obx(
       () => controller.loading == true
-          ? CircularProgressIndicator()
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
           : ListView.builder(
               shrinkWrap: true,
               itemBuilder: itemBuilder,
