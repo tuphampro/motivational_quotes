@@ -113,10 +113,7 @@ class QuotesController extends GetxController {
   }
 
   play() async {
-    final player = AudioPlayer(); // Create a player
-    final duration = await player.setAsset(// Load a URL
-        'assets/audios/StarSky_TwoStepsFromHell.mp3'); // Schemes: (https: | file: | asset: )
-    // player.play(); // Play without waiting for completion
+    final player = AudioPlayer();
     await player.setLoopMode(LoopMode.all);
     await player.setVolume(0.5);
     await player.play();
