@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks, must_be_immutable
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -110,25 +111,41 @@ class ListQuotesPage extends GetView<QuotesController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Obx(
-        () => controller.loading == true
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : SmartRefresher(
-                enablePullDown: true,
-                enablePullUp: true,
-                header: WaterDropHeader(),
-                controller: refreshController,
-                // onRefresh: _onRefresh,
-                // onLoading: _onLoading,
-                child: ListView.builder(
-                  controller: controller.scrollController,
-                  shrinkWrap: true,
-                  itemBuilder: itemBuilder,
-                  itemCount: controller.listData.length,
-                  padding: EdgeInsets.all(20),
-                ),
-              ),
+        () => SmartRefresher(
+          enablePullDown: true,
+          enablePullUp: true,
+          header: WaterDropMaterialHeader(),
+          controller: refreshController,
+          footer: CustomFooter(
+            builder: (context, mode) {
+              Widget body;
+              if (mode == LoadStatus.idle) {
+                body = Text("pull up load");
+              } else if (mode == LoadStatus.loading) {
+                body = CupertinoActivityIndicator();
+              } else if (mode == LoadStatus.failed) {
+                body = Text("Load Failed!Click retry!");
+              } else if (mode == LoadStatus.canLoading) {
+                body = Text("release to load more");
+              } else {
+                body = Text("No more Data");
+              }
+              return SizedBox(
+                height: 55.0,
+                child: Center(child: body),
+              );
+            },
+          ),
+          onRefresh: _onRefresh,
+          onLoading: _onLoading,
+          child: ListView.builder(
+            controller: controller.scrollController,
+            shrinkWrap: true,
+            itemBuilder: itemBuilder,
+            itemCount: controller.listData.length,
+            padding: EdgeInsets.all(20),
+          ),
+        ),
       ),
     );
   }
